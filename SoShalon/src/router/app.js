@@ -34,9 +34,9 @@ export default {
       },
 
       {
-        path : "/addCourse",
-        name : "addCourse",
-        component : resolve => require(['modules/basic/addCourse.vue'], resolve),
+        path : "/serviceProviderCard",
+        name : "serviceProviderCard",
+        component : resolve => require(['modules/basic/serviceProviderCard.vue'], resolve),
         meta: {
           token: true
         }
