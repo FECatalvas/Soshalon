@@ -2,23 +2,17 @@
   <div id="dashboard">
     <header id="header">
       <b-navbar toggleable="lg" type="dark" variant="dark">
-        <img id="logo" src="/logo.png" />
+        <b-navbar-brand href="#">
+          <img id="logo" src="/logo.png" />
+        </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
         <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav class="ml-auto" id="options">
-            <b-nav-item>
-              <b-form-group
-                class="mb-0"
-              >
-                <b-form-input
-                  id="input-formatter"
-                  v-model="text"
-                  placeholder="Enter address"
-                  :formatter="format"
-                ></b-form-input>
-              </b-form-group>
-            </b-nav-item>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-form>
+              <b-form-input size="ml" class="mb-3" placeholder="Enter address"></b-form-input>
+            </b-nav-form>
 
             <b-nav-item>
               <b-form-select v-model="selected" class="mb-3">
@@ -31,10 +25,20 @@
             <b-nav-item>
               <b-button pill variant="info" v-on:click="search()">Search</b-button>
             </b-nav-item>
-
-            <b-nav-item v-on:click="redirect('/register')">
-              <img id="profile" src="/profile.jpeg" />
-            </b-nav-item>
+            <img id="profile" src="/profile.jpeg" />
+            <b-nav-item-dropdown
+              id="my-nav-dropdown"
+              toggle-class="nav-link-custom"
+              right
+            >
+            <img id="editprofile" src="/profile.jpeg" />
+            <p>Ashley Faith Benitez <br> @ashley01</p>
+            <b-button variant="info">Edit</b-button>
+            <b-dropdown-divider></b-dropdown-divider>
+              <b-dropdown-item>VIEW APPOINTMENTS</b-dropdown-item>
+              <b-dropdown-divider></b-dropdown-divider>
+              <b-dropdown-item>SIGN OUT</b-dropdown-item>
+            </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
@@ -48,8 +52,8 @@
 <script>
 import Sidebar from "components/frame/Sidebar.vue";
 import AUTH from "services/auth";
-import { METHODS } from 'http';
-import { format } from 'path';
+import { METHODS } from "http";
+import { format } from "path";
 
 var fn = JSON.stringify(AUTH.currentUser.fname);
 var ln = JSON.stringify(AUTH.currentUser.lname);
@@ -66,16 +70,25 @@ export default {
         { value: "b", text: "Hair Cut" }
       ],
       text: ""
-      }
-      },
-      methods:{
-      format(value, event){
-        return value.toLowerCase()
-      }
+    };
+  },
+  methods: {
+    format(value, event) {
+      return value.toLowerCase();
     }
-  };
+  }
+};
 </script>
 <style>
+.mb-3,
+.my-3 {
+  margin-bottom: 0rem !important;
+}
+
+.mb-3,
+.my-3 {
+  margin-bottom: 1rem !important;
+}
 #logo {
   width: 200px;
   height: auto;
@@ -92,7 +105,31 @@ export default {
   height: 50px;
   border: 2px solid #ffff;
   border-radius: 50px;
-  margin-top:-5px;
+}
+
+#editprofile{
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border:2px solid #ffff;
+  margin-left:-1px;
+
+}
+
+.dropdown-menu {
+    top: 100%;
+    z-index: 1000;
+    min-width: 16rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: white;
+    text-align: center;
+    list-style: none;
+    background-color: #000;
+    background-clip: padding-box;
+    border: 2px solid #f8f9fa;
+    border-radius: 0.25rem;
 }
 #search {
   background-color: rgba(0, 0, 0, 0.3);
